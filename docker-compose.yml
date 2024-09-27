@@ -1,0 +1,26 @@
+services:
+  dingo:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/app
+    container_name: dingo
+    networks:
+      - dingo
+  
+  webserver:
+    build: nginx
+    ports:
+      - 8080:80
+    container_name: webserver
+    depends_on:
+      - dingo
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - dingo
+  
+networks:
+  dingo:
+    external: true
