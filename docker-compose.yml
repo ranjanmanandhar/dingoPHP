@@ -12,7 +12,7 @@ services:
   webserver:
     build: nginx
     ports:
-      - 8080:80
+      - "8080:80"
     container_name: webserver
     depends_on:
       - dingo
@@ -20,7 +20,39 @@ services:
       - ./:/var/www/html
     networks:
       - dingo
-  
+
+  mysql_db:
+    image: mysql:8.0
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: dingo
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpassword
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - dingo
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    platform: linux/amd64
+    environment:
+      PMA_HOST: mysql_db
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "8081:80"
+    depends_on:
+      - mysql_db
+    networks:
+      - dingo
+
 networks:
   dingo:
     external: true
+
+volumes:
+  mysql_data:
