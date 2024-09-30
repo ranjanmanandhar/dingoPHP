@@ -17,14 +17,14 @@ class StatesSeeder extends Seeder
     {
         // Data for Australian states and territories with abbreviations
         $states = [
-            ['name' => 'New South Wales', 'abbreviation' => 'NSW'],
-            ['name' => 'Victoria', 'abbreviation' => 'VIC'],
-            ['name' => 'Queensland', 'abbreviation' => 'QLD'],
-            ['name' => 'Western Australia', 'abbreviation' => 'WA'],
-            ['name' => 'South Australia', 'abbreviation' => 'SA'],
-            ['name' => 'Tasmania', 'abbreviation' => 'TAS'],
-            ['name' => 'Australian Capital Territory', 'abbreviation' => 'ACT'],
-            ['name' => 'Northern Territory', 'abbreviation' => 'NT'],
+            ['name' => 'New South Wales', 'state_code' => 'NSW'],
+            ['name' => 'Victoria', 'state_code' => 'VIC'],
+            ['name' => 'Queensland', 'state_code' => 'QLD'],
+            ['name' => 'Western Australia', 'state_code' => 'WA'],
+            ['name' => 'South Australia', 'state_code' => 'SA'],
+            ['name' => 'Tasmania', 'state_code' => 'TAS'],
+            ['name' => 'Australian Capital Territory', 'state_code' => 'ACT'],
+            ['name' => 'Northern Territory', 'state_code' => 'NT'],
         ];
 
         foreach ($states as $state) {

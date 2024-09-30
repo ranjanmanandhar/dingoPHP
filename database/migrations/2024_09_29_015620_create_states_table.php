@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('states', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('abbreviation', 3)->unique();
+            $table->string('state_code', 3)->unique();
             $table->timestamps();
         });
     }

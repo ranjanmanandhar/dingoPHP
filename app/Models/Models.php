@@ -5,12 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class State extends Model
+class Models extends Model
 {
     use HasFactory;
 
-    public function cars()
-    {
-        return $this->hasMany(Cars::class);
-    }
+    protected $fillable = ['name', 'make_id'];
 }
