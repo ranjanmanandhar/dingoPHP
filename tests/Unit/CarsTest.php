@@ -19,7 +19,6 @@ class CarsTest extends TestCase
     {
         $carService = new CarService();
 
-        // Creating an array of car objects
         $data = [
             (object) [
                 'licensePlate' => 'AN4-3452',
