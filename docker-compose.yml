@@ -5,6 +5,7 @@ services:
       - "8000:8000"
     volumes:
       - ./:/app
+      - vendor:/app/vendor
     container_name: dingo
     networks:
       - dingo
@@ -56,3 +57,4 @@ networks:
 
 volumes:
   mysql_data:
+  vendor:

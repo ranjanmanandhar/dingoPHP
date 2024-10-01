@@ -29,7 +29,7 @@ A Laravel application for Dinggo task
    
 ### Migrate and seed Database 
    
-    php artiasn db:migrate --fresh
+    php artiasn migrate --fresh
     php artisan db:seed
     
 ### The app will be running at
