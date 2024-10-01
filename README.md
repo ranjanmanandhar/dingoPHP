@@ -21,7 +21,7 @@ A Laravel application for Dinggo task
     
 ### Build app through docker
     docker network create dingo
-    docker compose --build
+    docker-compose --build
     docker compose up -d
 ### Goto project inside docker 
     
