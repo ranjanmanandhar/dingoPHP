@@ -20,7 +20,7 @@ A Laravel application for Dinggo task
     cp .env.example .env
     
 ### Build app through docker
-   
+    docker network create dingo
     docker compose --build
     docker compose up -d
 ### Goto project inside docker 
