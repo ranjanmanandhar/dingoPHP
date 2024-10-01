@@ -17,7 +17,6 @@
             <div>
                 <a href="/" class="btn btn-secondary">Home</a>
             </div>
-
         </div>
 
         <table class="table table-bordered">
@@ -37,7 +36,7 @@
             <tbody>
                 @foreach($cars as $car)
                 <tr>
-                    <td>{{ $car->id }}</td>
+                    <td>{{ $loop->iteration }}</td> <!-- Show the index of the car instead of $car->id -->
                     <td>{{ $car->license_plate }}</td>
                     <td>{{ $car->state->state_code ?? 'N/A' }}</td>
                     <td>{{ $car->vin }}</td>
@@ -65,36 +64,37 @@
             window.location.href = view_url;
         }
 
-        function syncCar(button) {
+        async function syncCar(button) {
             button.disabled = true;
             const originalText = button.innerText;
             button.innerText = 'Syncing...';
 
             const car = JSON.parse(button.getAttribute('data-car'));
-            let fetch_url = "{{ env('APP_URL') }}/quotes/sync";
-            console.log(fetch_url);
+            let fetch_url = "{{ env('APP_URL') }}/api/quotes/sync";
 
-            fetch(fetch_url, {
+            try {
+                const response = await fetch(fetch_url, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
                     body: JSON.stringify(car)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    alert('Response from server: ' + data.message);
-                    console.log(data);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred while syncing the car data.');
-                })
-                .finally(() => {
-                    button.disabled = false;
-                    button.innerText = originalText;
                 });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok: ' + response.statusText);
+                }
+
+                const data = await response.json();
+                alert('Response from server: ' + data.message);
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while syncing the car data: ' + error.message);
+            } finally {
+                button.disabled = false;
+                button.innerText = originalText;
+            }
         }
     </script>
 </body>

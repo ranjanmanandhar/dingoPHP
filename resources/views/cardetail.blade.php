@@ -50,7 +50,7 @@
             <tbody>
                 @foreach($cardetails->quote as $quote)
                 <tr>
-                    <td>{{ $quote->id }}</td>
+                    <td>{{ $loop->iteration }}</td>
                     <td>${{ number_format($quote->price, 2) }}</td>
                     <td>{{ $quote->repairer }}</td>
                     <td>{{ $quote->overview_of_work }}</td>

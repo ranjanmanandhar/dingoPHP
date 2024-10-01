@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Button Example</title>
+    <title>HOME</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -66,7 +66,7 @@
             apiButton.classList.add('loading');
             apiButton.disabled = true;
 
-            fetch('/cars/store', {
+            fetch('/api/cars/store', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -96,7 +96,36 @@
         }
 
         function deleteCars() {
-            alert('Button 3 clicked!');
+            const deleteButton = document.getElementById('delete_buttom');
+            deleteButton.innerText = 'Deleting...';
+            deleteButton.classList.add('loading');
+            deleteButton.disabled = true;
+
+            fetch('/api/cars', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    console.log(response)
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    alert(data.message || 'Cars deleted successfully!');
+                })
+                .catch(error => {
+                    console.log(error)
+                    alert('Error deleting cars: ' + error.message);
+                })
+                .finally(() => {
+                    deleteButton.innerText = 'DELETE every data from Database';
+                    deleteButton.classList.remove('loading');
+                    deleteButton.disabled = false;
+                });
         }
     </script>
 

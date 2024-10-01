@@ -45,4 +45,9 @@ class CarsController extends Controller
             ], 400);
         }
     }
+
+    public function deleteAllCarsDetails()
+    {
+        return $this->carService->deleteAllCarsDetails();
+    }
 }
