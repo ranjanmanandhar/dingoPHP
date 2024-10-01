@@ -51,7 +51,7 @@ class CarService
             );
         }
         Log::info('Cars stored successfully.');
-        return response()->json(['message' => 'Cars stored successfully.'], 201);
+        return response()->json(['message' => 'Cars stored successfully.'], 200);
     }
 
 
