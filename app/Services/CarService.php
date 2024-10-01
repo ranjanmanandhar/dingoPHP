@@ -8,6 +8,7 @@ use App\Models\Models as CarModel;
 use App\Models\Quote;
 use App\Models\State;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CarService
 {
@@ -27,6 +28,12 @@ class CarService
     {
         foreach ($cars as $car) {
             $state = State::where('state_code', $car->licenseState)->first();
+
+            if (!$state) {
+                Log::warning('State not found for state code: ' . $car->licenseState);
+                continue;
+            }
+
             $carMake = CarsMake::firstOrCreate(['name' => $car->make]);
             $model = CarModel::firstOrCreate(['name' => $car->model, 'make_id' => $carMake->id]);
             Cars::firstOrCreate(
@@ -43,12 +50,14 @@ class CarService
                 ]
             );
         }
-
+        Log::info('Cars stored successfully.');
         return response()->json(['message' => 'Cars stored successfully.'], 201);
     }
 
+
     public function deleteAllCarsDetails()
     {
+        Log::info('Attempting to delete all car details.');
         try {
             DB::transaction(function () {
                 CarModel::query()->delete();
@@ -56,10 +65,10 @@ class CarService
                 CarsMake::query()->delete();
                 Quote::query()->delete();
             });
+            Log::info('All car details deleted successfully.');
             return response()->json(['message' => 'All car details deleted successfully.'], 200);
         } catch (\Exception $e) {
-            // Log the error for debugging
-            // \Log::error('Error deleting car details: ' . $e->getMessage());
+            Log::error('Error deleting car details: ' . $e->getMessage());
             return response()->json(['message' => 'Error deleting car details.'], 500);
         }
     }
