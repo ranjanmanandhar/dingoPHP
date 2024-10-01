@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('cars', function (Blueprint $table) {
             $table->id();
             $table->string('license_plate')->unique();
-            $table->foreignId('state_id')->constrained('states')->onDelete('cascade'); // Foreign key to states table
+            $table->foreignId('state_id')->constrained('states');
             $table->string('vin')->unique();
             $table->year('year');
             $table->string('colour');
-            $table->foreignId('make_id')->constrained('cars_make')->onDelete('cascade'); // Foreign key to makes table
-            $table->foreignId('model_id')->constrained('models')->onDelete('cascade'); // Foreign key to models table
+            $table->foreignId('make_id')->constrained('cars_make')->onDelete('cascade');
+            $table->foreignId('model_id')->constrained('models')->onDelete('cascade');
             $table->timestamps();
         });
     }

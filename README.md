@@ -21,7 +21,7 @@ A Laravel application for Dinggo task
     
 ### Build app through docker
     docker network create dingo
-    docker-compose --build
+    docker-compose build  
     docker compose up -d
 ### Goto project inside docker 
     
@@ -29,8 +29,7 @@ A Laravel application for Dinggo task
    
 ### Migrate and seed Database 
    
-    php artiasn migrate --fresh
-    php artisan db:seed
+    php artisan migrate --seed
     
 ### The app will be running at
     http://localhost:8080
